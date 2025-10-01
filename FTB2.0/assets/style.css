@@ -1,0 +1,82 @@
+:root {
+  --card-bg: #0f172a;
+  --card-border: #1e293b;
+  --accent: #38bdf8;
+  --fg: #e2e8f0;
+}
+
+html,
+body,
+[data-testid="stAppViewContainer"] {
+  background: linear-gradient(180deg, #0b1020 0%, #0a0f1b 100%);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+span,
+label {
+  color: var(--fg) !important;
+}
+
+.block-container {
+  padding-top: 1.2rem;
+}
+
+.card {
+  border: 1px solid var(--card-border);
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 0.75rem;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
+}
+
+.badge {
+  display: inline-block;
+  background: #0ea5e9;
+  color: white;
+  border-radius: 999px;
+  padding: 0.1rem 0.6rem;
+  font-size: 0.8rem;
+}
+
+/* Aumenta tamaño de fuente y mejora padding en AgGrid */
+.ag-theme-streamlit .ag-root-wrapper,
+.ag-theme-streamlit .ag-cell,
+.ag-theme-streamlit .ag-header-cell-label {
+  font-size: 15px;
+  line-height: 1.25;
+}
+
+.ag-theme-streamlit .ag-cell {
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+/* Botones de acciones dentro de la grid */
+.ag-btn {
+  border: 1px solid #334155;
+  background: #1f2937;
+  color: #e2e8f0;
+  border-radius: 8px;
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: transform .06s ease, background .15s ease;
+}
+
+.ag-btn:hover {
+  background: #0f172a;
+  transform: translateY(-1px);
+}
+
+.ag-btn-edit {
+  border-color: #22c55e;
+}
+
+.ag-btn-del {
+  border-color: #ef4444;
+}
