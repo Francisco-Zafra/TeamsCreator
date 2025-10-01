@@ -637,13 +637,6 @@ def tab_teams():
             @st.dialog("📸 Vista para foto", width="large")
             def _photo_modal():
                 components.html(pitch_css + pitch_html, height=840, scrolling=False)
-                colA, colB = st.columns(2)
-                with colA:
-                    if st.button("❌ Cerrar", use_container_width=True):
-                        # nada que mantener: el open_once ya se consumió
-                        st.rerun()
-                with colB:
-                    st.caption("Consejo: haz la captura con la herramienta del sistema.")
             _photo_modal()
         else:
             components.html(pitch_css + pitch_html, height=840, scrolling=False)
