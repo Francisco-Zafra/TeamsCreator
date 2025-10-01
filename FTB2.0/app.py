@@ -17,7 +17,7 @@ def main():
     header()
     init_db()
     seed_if_empty()
-    tab1, tab2 = st.tabs(["📋 Jugadores", "🧮 Creación de equipos"])
+    tab1, tab2 = st.tabs(["📋 Jugadores", "⚽ Creación de equipos"])
     with tab1: tab_players()
     with tab2: tab_teams()
 
