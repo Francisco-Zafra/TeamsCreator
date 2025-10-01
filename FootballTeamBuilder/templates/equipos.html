@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h3>Generador de Equipos Balanceados</h3>
+
+<!-- Formulario para seleccionar parámetros -->
+<form method="post" class="mb-4">
+    <div class="row g-3 align-items-end">
+        <div class="col-md-3">
+            <label class="form-label">Equipo A</label>
+            <div class="input-group">
+                <input type="color" id="color_equipo_a" name="color_equipo_a" class="form-control form-control-color"
+                value="{{ request.form.get('color_equipo_a', '#fcbbc0') }}">
+         
+                <input type="text" name="nombre_equipo_a" id="nombre_equipo_a" class="form-control"
+                        value="{{ request.form.get('nombre_equipo_a', 'Equipo A') }}">
+            </div>
+        </div>
+          
+        <div class="col-md-3">
+            <label class="form-label">Equipo B</label>
+            <div class="input-group">
+                <input type="color" id="color_equipo_b" name="color_equipo_b" class="form-control form-control-color"
+                value="{{ request.form.get('color_equipo_b', '#bec0f3') }}">
+         
+              <input type="text" id="nombre_equipo_b" name="nombre_equipo_b" class="form-control"
+                     value="{{ request.form.get('nombre_equipo_b', 'Equipo B') }}">
+            </div>
+        </div>
+          
+      <div class="col-md-3">
+        <label class="form-label">Jugadores por equipo</label>
+        <input type="number" name="num_por_equipo" class="form-control"
+               value="{{ request.form.get('num_por_equipo', 5) }}" min="1">
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Umbral máximo</label>
+        <input type="range" name="umbral" id="umbral"
+               min="0" max="5" step="0.1"
+               value="{{ request.form.get('umbral', 1.0) }}"
+               class="form-range"
+               oninput="document.getElementById('umbralValor').innerText = this.value">
+        <small>Diferencia máxima: <strong><span id="umbralValor">{{ request.form.get('umbral', 1.0) }}</span></strong></small>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col text-end">
+        <button class="btn btn-success">Generar Equipos</button>
+      </div>
+    </div>
+</form>
+
+<!-- Resultado de equipos -->
+{% if equipos %}
+{% set media_a = equipos[0]|map(attribute=2)|sum / equipos[0]|length %}
+{% set media_b = equipos[1]|map(attribute=2)|sum / equipos[1]|length %}
+{% set color_a = request.form.get('color_equipo_a') if request.method == 'POST' else '#fcbbc0' %}
+{% set color_b = request.form.get('color_equipo_b') if request.method == 'POST' else '#bec0f3' %}
+
+
+<div class="row">
+  <div class="col-md-6">
+    <h5 id="titulo_equipo_a">{{ request.form.get('nombre_equipo_a', 'Equipo A') }} (Media: {{ "%.2f"|format(media_a) }})</h5>
+    <div id="tabla_equipo_a" class="rounded-table-wrapper" style="background-color: {{ color_a }};">
+        <table class="custom-team-table table-sm table-bordered w-100">
+            <thead class="table-dark text-center">
+            <tr>
+                <th>Nombre</th>
+                <th>Media</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for p in equipos[0] %}
+            <tr style="background-color: {{ color_a }} !important;">
+                <td>{{ p[1] }}</td>
+                <td class="text-center">{{ "%.2f"|format(p[2]) }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+      
+  </div>
+  <div class="col-md-6">
+    <h5 id="titulo_equipo_b">{{ request.form.get('nombre_equipo_b', 'Equipo B') }} (Media: {{ "%.2f"|format(media_b) }})</h5>
+    <div id="tabla_equipo_b" class="rounded-table-wrapper" style="background-color: {{ color_b }};">      
+    <table class="custom-team-table table-sm table-bordered w-100">
+        <thead class="table-dark text-center">
+            <tr>
+                <th>Nombre</th>
+                <th>Media</th>
+            </tr>
+        </thead>
+            <tbody>
+            {% for p in equipos[1] %}
+            <tr style="background-color: {{ color_b }} !important;">
+                <td>{{ p[1] }}</td>
+                <td class="text-center">{{ "%.2f"|format(p[2]) }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>  
+  </div>
+</div>
+
+
+{% elif request.method == 'POST' %}
+<div class="alert alert-warning mt-3">No se han encontrado combinaciones de equipos con ese umbral.</div>
+{% endif %}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const colorInputA = document.getElementById('color_equipo_a');
+        const colorInputB = document.getElementById('color_equipo_b');
+        const tablaA = document.getElementById('tabla_equipo_a');
+        const tablaB = document.getElementById('tabla_equipo_b');
+    
+        if (colorInputA && tablaA) {
+            colorInputA.addEventListener('input', () => {
+                tablaA.style.backgroundColor = colorInputA.value;
+                tablaA.querySelectorAll('td, th, tr').forEach(el => el.style.backgroundColor = colorInputA.value);
+            });
+        }
+    
+        if (colorInputB && tablaB) {
+            colorInputB.addEventListener('input', () => {
+                tablaB.style.backgroundColor = colorInputB.value;
+                tablaB.querySelectorAll('td, th, tr').forEach(el => el.style.backgroundColor = colorInputB.value);
+            });
+        }
+    });
+
+    const inputNombreA = document.getElementById('nombre_equipo_a');
+    const inputNombreB = document.getElementById('nombre_equipo_b');
+    const tituloA = document.getElementById('titulo_equipo_a');
+    const tituloB = document.getElementById('titulo_equipo_b');
+
+    if (inputNombreA && tituloA) {
+        inputNombreA.addEventListener('input', () => {
+            tituloA.textContent = inputNombreA.value || 'Equipo A';
+        });
+    }
+
+    if (inputNombreB && tituloB) {
+        inputNombreB.addEventListener('input', () => {
+            tituloB.textContent = inputNombreB.value || 'Equipo B';
+        });
+    }
+</script>
+    
+{% endblock %}

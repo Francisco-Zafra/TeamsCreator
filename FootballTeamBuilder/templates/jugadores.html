@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h3>Gestión de Jugadores</h3>
+
+<!-- Formulario para añadir un nuevo jugador -->
+<form action="/add" method="post" class="row g-2 mb-4">
+  {% for attr in ['nombre','ritmo','tiro','pase','regate','defensa','fisico'] %}
+    <div class="col">
+      <input type="text" name="{{ attr }}" class="form-control" placeholder="{{ attr.capitalize() }}" required>
+    </div>
+  {% endfor %}
+  <div class="col-auto">
+    <button type="submit" class="btn btn-success">Añadir</button>
+  </div>
+</form>
+
+<!-- Tabla de jugadores -->
+<table class="table table-striped table-hover align-middle">
+  <thead class="table-dark">
+    <tr>
+      <th>Nombre</th><th>Rit</th><th>Tir</th><th>Pas</th><th>Reg</th><th>Def</th><th>Fís</th><th>Media</th><th>Activo</th><th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in players %}
+    {% if editing and editing[0] == p[0] %}
+    <tr class="table-warning">
+    <form action="/edit/{{ editing[0] }}" method="post">
+        <td><input type="text" name="nombre" class="form-control" value="{{ editing[1] }}"></td>
+        <td><input type="number" name="ritmo" class="form-control" value="{{ editing[2] }}"></td>
+        <td><input type="number" name="tiro" class="form-control" value="{{ editing[3] }}"></td>
+        <td><input type="number" name="pase" class="form-control" value="{{ editing[4] }}"></td>
+        <td><input type="number" name="regate" class="form-control" value="{{ editing[5] }}"></td>
+        <td><input type="number" name="defensa" class="form-control" value="{{ editing[6] }}"></td>
+        <td><input type="number" name="fisico" class="form-control" value="{{ editing[7] }}"></td>
+        <td class="text-muted">Auto</td>
+        <td>—</td>
+        <td>
+        <button class="btn btn-sm btn-success" title="Guardar">💾</button>
+        <a href="{{ url_for('index') }}" class="btn btn-sm btn-secondary" title="Cancelar">✖️</a>
+        </td>
+    </form>
+    </tr>
+    {% endif %}
+
+    <tr class="{% if not p[7] %}table-secondary{% endif %}">
+      <td>{{ p[1] }}</td>
+      <td>{{ p[2] }}</td>
+      <td>{{ p[3] }}</td>
+      <td>{{ p[4] }}</td>
+      <td>{{ p[5] }}</td>
+      <td>{{ p[6] }}</td>
+      <td>{{ p[7] }}</td>
+      <td>{{ "%.2f"|format(p[9]) }}</td>
+      <td>
+        <a href="/toggle/{{ p[0] }}">{{ "✅" if p[8] else "❌" }}</a>
+      </td>
+      <td>
+        <a href="{{ url_for('edit_form', player_id=p[0]) }}" class="btn btn-sm btn-outline-primary" title="Editar">✏️</a>
+        <a href="/delete/{{ p[0] }}" class="btn btn-sm btn-outline-danger" title="Eliminar">🗑️</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
