@@ -1,3 +1,27 @@
-# TeamsCreator
+# ⚽🔥 WEFA CHAMPIONS NICS 🔥⚽
 
-<img width="416" height="3736" alt="image" src="https://github.com/user-attachments/assets/085ec48e-cf7a-43bd-afbc-86d8dc6beb59" />
+Bienvenidos al campo base oficial de la competición más esperada:
+aquí no se programa, aquí se forjan equipos.
+
+Este repositorio existe con un único propósito:
+dividir a los guerreros en dos bandos legendarios para la batalla de la WEFA CHAMPIONS NICS.
+
+# 🏆 Misión del Repo
+
+Definir los dos equipos oficiales.
+
+Asignar jugadores.
+
+Crear la identidad de cada escuadra.
+
+Este es el lugar donde la historia se escribe con simples nombres…
+pero esos nombres se convertirán en leyenda.
+
+# 🏅 El Lema
+
+“No elegimos a los equipos…
+los equipos nos eligen a nosotros.”
+
+Aquí no hay código.
+Aquí no hay excusas.
+Aquí empieza la Champions NICS.
