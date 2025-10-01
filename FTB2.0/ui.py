@@ -435,8 +435,8 @@ def tab_teams():
 
     # Tablas normales (se quedan igual)
     col1, col2 = st.columns(2)
-    _team_table(col1, t1, f"{teamA_label} ({len(t1)})", captain_id=capA_id)
-    _team_table(col2, t2, f"{teamB_label} ({len(t2)})", captain_id=capB_id)
+    _team_table(col1, t1, f"{teamA_label} ❤️", captain_id=capA_id)
+    _team_table(col2, t2, f"{teamB_label} 💙", captain_id=capB_id)
 
 
     # =========================
