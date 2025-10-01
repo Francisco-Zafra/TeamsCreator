@@ -1,3 +1,5 @@
+<img width="1024" height="1315" alt="ChatGPT Image 1 oct 2025, 09_09_16" src="https://github.com/user-attachments/assets/fed1b162-d34f-4efc-a97f-40e2de18bb63" />
+
 # ⚽🔥 WEFA CHAMPIONS NICS 🔥⚽
 
 Bienvenidos al campo base oficial de la competición más esperada:
